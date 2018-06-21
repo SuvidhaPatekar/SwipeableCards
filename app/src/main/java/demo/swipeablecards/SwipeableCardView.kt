@@ -7,7 +7,7 @@ import android.util.AttributeSet
 import android.util.DisplayMetrics
 import android.view.MotionEvent
 
-class SwappableCardView(context: Context, attrs: AttributeSet?) : CardView(context, attrs) {
+class SwipeableCardView(context: Context, attrs: AttributeSet?) : CardView(context, attrs) {
 
     private lateinit var swipeActionListener: SwipeActionListener
 
@@ -19,6 +19,7 @@ class SwappableCardView(context: Context, attrs: AttributeSet?) : CardView(conte
         //xCord and yCord - Position of view before touch
         var startX = 0
         var startY = 0
+
 
         //xCord and yCord - Position of view after touch
         var xCord = 0
@@ -38,8 +39,10 @@ class SwappableCardView(context: Context, attrs: AttributeSet?) : CardView(conte
 
         setOnTouchListener { view, motionEvent ->
 
-             xCord = motionEvent.rawX.toInt()
-             yCord = motionEvent.rawY.toInt()
+            xCord = motionEvent.rawX.toInt()
+            yCord = motionEvent.rawY.toInt()
+
+            cardElevation = 40f
 
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -113,6 +116,6 @@ class SwappableCardView(context: Context, attrs: AttributeSet?) : CardView(conte
     }
 
     interface SwipeActionListener {
-        fun removeCard(view: SwappableCardView)
+        fun removeCard(view: SwipeableCardView)
     }
 }

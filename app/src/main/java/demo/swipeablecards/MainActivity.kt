@@ -10,7 +10,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_single_card.view.*
 
-class MainActivity : AppCompatActivity(), SwappableCardView.SwipeActionListener {
+class MainActivity : AppCompatActivity(), SwipeableCardView.SwipeActionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,14 +43,14 @@ class MainActivity : AppCompatActivity(), SwappableCardView.SwipeActionListener 
             tvName.text = i.toString()
 
             //Set swipeActionListener to view
-            singleCardView.swappableCardView.setSwipeActionListener(this)
+            singleCardView.swCardView.setSwipeActionListener(this)
 
             //Adding child to main view
             rlMain.addView(singleCardView)
         }
     }
 
-    override fun removeCard(view: SwappableCardView) {
+    override fun removeCard(view: SwipeableCardView) {
         //Remove child view from parent view
         rlMain.removeView(view)
 
