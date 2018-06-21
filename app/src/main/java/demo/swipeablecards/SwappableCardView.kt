@@ -5,7 +5,6 @@ import android.content.Context
 import android.support.v7.widget.CardView
 import android.util.AttributeSet
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.MotionEvent
 
 class SwappableCardView(context: Context, attrs: AttributeSet?) : CardView(context, attrs) {
@@ -25,25 +24,22 @@ class SwappableCardView(context: Context, attrs: AttributeSet?) : CardView(conte
         var xCord = 0
         var yCord = 0
 
+        val margin = 80f
         var toRemove = false
 
         //Get window width and window height to calculate horizontal and vertical center of the screen
-        var windowWidth = 0
-        var windowHeight = 0
-        var screenCenterHorizontal = 0
-        var screenCenterVertical = 0
 
         val displayMetrics = DisplayMetrics()
         (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
-        windowWidth = displayMetrics.widthPixels
-        windowHeight = displayMetrics.heightPixels
-        screenCenterHorizontal = windowWidth / 2
-        screenCenterVertical = windowHeight / 2
+        val windowWidth = displayMetrics.widthPixels
+        val windowHeight = displayMetrics.heightPixels
+        val screenCenterHorizontal = windowWidth / 2
+        val screenCenterVertical = windowHeight / 2
 
         setOnTouchListener { view, motionEvent ->
 
-            xCord = motionEvent.rawX.toInt()
-            yCord = motionEvent.rawY.toInt()
+             xCord = motionEvent.rawX.toInt()
+             yCord = motionEvent.rawY.toInt()
 
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -60,12 +56,18 @@ class SwappableCardView(context: Context, attrs: AttributeSet?) : CardView(conte
 
                     //Remove card from left or right side checking horizontal center
                     toRemove = if (xCord >= screenCenterHorizontal) {
+                        //Rotate view clockwise
+                        rotation = 12f
+
                         if (xCord > screenCenterHorizontal + screenCenterHorizontal / 2) {
                             xCord > windowWidth - screenCenterHorizontal / 4
                         } else {
                             false
                         }
                     } else {
+                        //Rotate view antiClockWise
+                        rotation = -12f
+
                         if (xCord < screenCenterHorizontal / 2) {
                             xCord < screenCenterHorizontal / 4
                         } else {
@@ -96,12 +98,13 @@ class SwappableCardView(context: Context, attrs: AttributeSet?) : CardView(conte
                     yCord = motionEvent.rawY.toInt()
 
                     if (toRemove) {
-                        //Swipe card
-                        Log.d("Remove card", "Inside to remove method")
+                        //Call remove card method to remove selected view
+                        swipeActionListener.removeCard(this)
                     } else {
                         //init position
-                        x = 0f
-                        y = 0f
+                        x = margin
+                        y = margin
+                        rotation = 0f
                     }
                 }
             }

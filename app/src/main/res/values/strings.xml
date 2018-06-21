@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Swipeable Cards</string>
+    <string name="refresh">refresh</string>
+    <string name="reload_data">Reload data</string>
 </resources>
