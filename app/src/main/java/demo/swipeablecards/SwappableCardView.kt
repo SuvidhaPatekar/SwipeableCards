@@ -10,6 +10,12 @@ import android.view.MotionEvent
 
 class SwappableCardView(context: Context, attrs: AttributeSet?) : CardView(context, attrs) {
 
+    private lateinit var swipeActionListener: SwipeActionListener
+
+    fun setSwipeActionListener(swipeActionListener: SwipeActionListener) {
+        this.swipeActionListener = swipeActionListener
+    }
+
     init {
         //xCord and yCord - Position of view before touch
         var startX = 0
@@ -101,5 +107,9 @@ class SwappableCardView(context: Context, attrs: AttributeSet?) : CardView(conte
             }
             return@setOnTouchListener true
         }
+    }
+
+    interface SwipeActionListener {
+        fun removeCard(view: SwappableCardView)
     }
 }
