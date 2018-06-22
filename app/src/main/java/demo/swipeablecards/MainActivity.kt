@@ -17,10 +17,10 @@ class MainActivity : AppCompatActivity(), SwipeableCardView.SwipeActionListener 
         setContentView(R.layout.activity_main)
 
         //onClickListener on Refresh image will reload data
-        ivRefresh.setOnClickListener({
+        ivRefresh.setOnClickListener {
             ivRefresh.visibility = View.GONE
             swipeCards()
-        })
+        }
 
         swipeCards()
     }
@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity(), SwipeableCardView.SwipeActionListener 
             //Set swipeActionListener to view
             singleCardView.swCardView.setSwipeActionListener(this)
 
-            //Adding child to main view
             rlMain.addView(singleCardView)
         }
     }
